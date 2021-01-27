@@ -95,7 +95,17 @@ namespace Robust.Shared.GameObjects.Components.Renderable
 
             public IDeepClone DeepClone()
             {
-                return this;
+                return new PrototypeLayerData {
+                    Shader = Shader,
+                    TexturePath = TexturePath,
+                    RsiPath = RsiPath,
+                    State = State,
+                    Scale = IDeepClone.CloneValue(Scale),
+                    Rotation = IDeepClone.CloneValue(Rotation),
+                    Visible = Visible,
+                    Color= Color,
+                    MapKeys = IDeepClone.CloneValue(MapKeys)
+                };
             }
         }
     }

@@ -298,7 +298,11 @@ namespace Robust.Server.GameObjects.Components.Container
 
             public IDeepClone DeepClone()
             {
-                return this;
+                return new ContainerPrototypeData()
+                {
+                    Entities = IDeepClone.CloneValue(Entities)!,
+                    Type = Type
+                };
             }
         }
 

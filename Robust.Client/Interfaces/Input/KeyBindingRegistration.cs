@@ -32,7 +32,17 @@ namespace Robust.Client.Interfaces.Input
 
         public IDeepClone DeepClone()
         {
-            return this;
+            return new KeyBindingRegistration()
+            {
+                Function = Function,
+                Type = Type,
+                BaseKey = BaseKey,
+                Mod1 = Mod1,
+                Mod2 = Mod3,
+                Priority = Priority,
+                CanFocus = CanFocus,
+                CanRepeat = CanRepeat
+            };
         }
     }
 }

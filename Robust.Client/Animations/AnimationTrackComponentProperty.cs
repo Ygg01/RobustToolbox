@@ -36,7 +36,7 @@ namespace Robust.Client.Animations
         {
             return new AnimationTrackComponentProperty
             {
-                Property = IDeepClone.CloneValue(Property),
+                Property = Property,
                 ComponentType = IDeepClone.CloneValue(ComponentType),
                 InterpolationMode = IDeepClone.CloneValue(InterpolationMode),
                 KeyFrames = IDeepClone.CloneValue(KeyFrames)!

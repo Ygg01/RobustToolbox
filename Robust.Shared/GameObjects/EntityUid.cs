@@ -144,7 +144,7 @@ namespace Robust.Shared.GameObjects
 
         public IDeepClone DeepClone()
         {
-            return new EntityUid(_uid);
+            return new EntityUid(IDeepClone.CloneValue(_uid));
         }
     }
 }

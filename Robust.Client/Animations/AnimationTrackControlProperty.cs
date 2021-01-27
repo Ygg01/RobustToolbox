@@ -24,7 +24,7 @@ namespace Content.Client.Animations
         {
             return new AnimationTrackControlProperty
             {
-                Property = IDeepClone.CloneValue(Property),
+                Property = Property,
                 InterpolationMode = IDeepClone.CloneValue(InterpolationMode),
                 KeyFrames = IDeepClone.CloneValue(KeyFrames)!
             };

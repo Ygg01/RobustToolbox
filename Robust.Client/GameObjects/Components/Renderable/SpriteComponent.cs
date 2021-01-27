@@ -1883,7 +1883,7 @@ namespace Robust.Client.GameObjects
 
             public IDeepClone DeepClone()
             {
-                return new Layer(this, null!);
+                return new Layer(IDeepClone.CloneValue(this)!, null!);
             }
         }
 

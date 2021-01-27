@@ -19,18 +19,14 @@ namespace Robust.Client.GameObjects
 {
     public sealed class AppearanceComponent : SharedAppearanceComponent
     {
-        [ViewVariables]
-        private Dictionary<object, object> data = new();
-        [ViewVariables]
-        [YamlField("visuals")]
-        internal List<AppearanceVisualizer> Visualizers = new();
+        [ViewVariables] private Dictionary<object, object> data = new();
+        [ViewVariables] [YamlField("visuals")] internal List<AppearanceVisualizer> Visualizers = new();
 
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
 
         private static bool _didRegisterSerializer;
 
-        [ViewVariables]
-        private bool _appearanceDirty;
+        [ViewVariables] private bool _appearanceDirty;
 
         public override void SetData(string key, object value)
         {
@@ -142,7 +138,9 @@ namespace Robust.Client.GameObjects
             public override IDeepClone DeepClone()
             {
                 return new SpriteLayerToggle(
-                    Key, SpriteLayer);
+                    IDeepClone.CloneValue(Key)!,
+                    SpriteLayer
+                );
             }
         }
     }

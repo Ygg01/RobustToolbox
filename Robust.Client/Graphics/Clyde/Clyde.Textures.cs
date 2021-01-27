@@ -85,7 +85,9 @@ namespace Robust.Client.Graphics.Clyde
             {
                 // Note that if _hasGLSrgb is off, we import an sRGB texture as non-sRGB.
                 // Shaders are expected to compensate for this
-                internalFormat = (actualParams.Srgb && _hasGLSrgb) ? PixelInternalFormat.Srgb8Alpha8 : PixelInternalFormat.Rgba8;
+                internalFormat = (actualParams.Srgb && _hasGLSrgb)
+                    ? PixelInternalFormat.Srgb8Alpha8
+                    : PixelInternalFormat.Rgba8;
                 isActuallySrgb = actualParams.Srgb;
                 pixelDataFormat = PixelFormat.Rgba;
                 pixelDataType = PixelType.UnsignedByte;
@@ -202,10 +204,12 @@ namespace Robust.Client.Graphics.Clyde
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
             CheckGlError();
         }
 
-        private ClydeTexture GenTexture(GLHandle glHandle, Vector2i size, bool srgb, string? name, long memoryPressure=0)
+        private ClydeTexture GenTexture(GLHandle glHandle, Vector2i size, bool srgb, string? name,
+            long memoryPressure = 0)
         {
             if (name != null)
             {
@@ -351,6 +355,7 @@ namespace Robust.Client.Graphics.Clyde
             public bool IsSrgb;
             public string? Name;
             public long MemoryPressure;
+
             public Vector2i Size => (Width, Height);
             // public WeakReference<ClydeTexture> TextureInstance;
         }
@@ -403,7 +408,12 @@ namespace Robust.Client.Graphics.Clyde
 
             public IDeepClone DeepClone()
             {
-                return new ClydeTexture(TextureId, Size, IsSrgb, _clyde);
+                return new ClydeTexture(
+                    TextureId,
+                    Size,
+                    IsSrgb,
+                    _clyde
+                );
             }
         }
 

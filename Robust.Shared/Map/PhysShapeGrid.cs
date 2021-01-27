@@ -105,7 +105,7 @@ namespace Robust.Shared.Map
 
         public IDeepClone DeepClone()
         {
-            return new PhysShapeGrid(_mapGrid);
+            return new PhysShapeGrid(IDeepClone.CloneValue(_mapGrid)!);
         }
     }
 }
