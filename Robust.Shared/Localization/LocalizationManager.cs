@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -157,6 +158,21 @@ namespace Robust.Shared.Localization
             FlushEntityCache();
         }
 
+        public IEnumerable<(string, string)> GetAvailableLocalization()
+        {
+            var localeRoot = new ResourcePath("/Locale/");
+
+            foreach (var filePath in _res.ContentGetDirectoryEntries(localeRoot))
+            {
+                // Paths to translation contain `/` at end
+                if (filePath[^1..] == "/")
+                {
+                    var name = filePath[..^1];
+                    yield return (filePath, GetString(name));
+                }
+            }
+        }
+
         public CultureInfo? DefaultCulture
         {
             get => _defaultCulture;
@@ -224,8 +240,10 @@ namespace Robust.Shared.Localization
             // Data is loaded from /Locale/<language-code>/*
 
             var root = new ResourcePath($"/Locale/{culture.Name}/");
+            var translation = new[] { new ResourcePath("/Locale/lang.ftl") };
 
             var files = resourceManager.ContentFindFiles(root)
+                .Union(translation)
                 .Where(c => c.Filename.EndsWith(".ftl", StringComparison.InvariantCultureIgnoreCase))
                 .ToArray();
 

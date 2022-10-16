@@ -83,9 +83,11 @@ namespace Robust.Shared.Localization
         ///     Gets localization data for an entity prototype.
         /// </summary>
         EntityLocData GetEntityData(string prototypeId);
+
+        IEnumerable<(string, string)> GetAvailableLocalization();
     }
 
-    internal interface ILocalizationManagerInternal : ILocalizationManager
+    internal interface ILocalizationManagerInternal : ILocalizationManager<string>
     {
         void AddLoadedToStringSerializer(IRobustMappedStringSerializer serializer);
     }
