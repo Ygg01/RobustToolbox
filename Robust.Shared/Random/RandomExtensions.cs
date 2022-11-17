@@ -96,7 +96,7 @@ namespace Robust.Shared.Random
             var sum = 0;
             for (int i = 0; i < numberOfDice; i++)
             {
-                sum += random.Next(1, facesPerDie);
+                sum += random.Next(1, facesPerDie+1);
             }
 
             return sum;

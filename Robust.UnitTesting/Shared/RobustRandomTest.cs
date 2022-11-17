@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Collections.Generic;
+using NUnit.Framework;
 using Robust.Shared.Random;
 
 namespace Robust.UnitTesting.Shared;
@@ -20,11 +22,11 @@ public sealed class RobustRandomTest
 
     [Test]
     [Parallelizable]
-    [TestCase(3,4)]
-    [TestCase(1,6)]
-    [TestCase(4,70)]
-    [TestCase(5,120)]
-    [TestCase(30,1000)]
+    [TestCase(3, 4)]
+    [TestCase(1, 6)]
+    [TestCase(4, 70)]
+    [TestCase(5, 120)]
+    [TestCase(30, 1000)]
     public void TestDiceRandom(int num, int faces)
     {
         IRobustRandom compRandom = RobustRandom.FromSeed(Seed);
@@ -33,8 +35,9 @@ public sealed class RobustRandomTest
         var sum = 0;
         for (uint i = 0; i < num; i++)
         {
-            sum += compRandom.Next(1, faces);
+            sum += compRandom.Next(1, faces + 1);
         }
+
         Assert.That(actual, Is.EqualTo(sum));
     }
 
@@ -52,10 +55,28 @@ public sealed class RobustRandomTest
             var sum = 0;
             for (uint i = 0; i < num; i++)
             {
-                sum += compRandom.Next(1, faces);
+                sum += compRandom.Next(1, faces + 1);
             }
+
             Assert.That(actual, Is.EqualTo(sum));
         }
+    }
 
+    [Test]
+    public void TestAllRandomValues()
+    {
+        IRobustRandom random = RobustRandom.FromSeed(Seed);
+        var sides = 6;
+        var sidesSet = new HashSet<int>();
+        var expectedSides = new HashSet<int>()
+        {
+            1, 2, 3, 4, 5, 6
+        };
+        for (int i = 0; i < 1000; i++)
+        {
+            sidesSet.Add(random.RollDice(1, sides));
+        }
+
+        CollectionAssert.AreEquivalent(expectedSides, sidesSet);
     }
 }
